@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tennis-career"
+version = "0.1.0"
+description = "Tennis career data and visualizations"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "matplotlib",
+    "requests",
+    "beautifulsoup4"
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
