@@ -1,7 +1,8 @@
-
 from pathlib import Path
 import pandas as pd
 import pytest
+from unittest.mock import patch
+from tennis_career.data import _download_career_js
 
 from tennis_career.data import _parse_career_js, _opponent_age, _clean_matches
 
@@ -40,3 +41,10 @@ def test_missing_opponent_age():
     age = _opponent_age("", date)
 
     assert pd.isna(age)
+
+def test_invalid_player():
+    with patch("tennis_career.data.requests.get") as get:
+        get.return_value.status_code = 404
+
+        with pytest.raises(ValueError, match="not found"):
+            _download_career_js("Gaston Sanchez")
